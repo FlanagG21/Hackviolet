@@ -1,8 +1,10 @@
 import asyncio
 import websockets
+from twilio.rest import Client
 
 nums = 0
 reply = ""
+
 
 
 # create handler for each connection
@@ -30,6 +32,16 @@ async def handler(websocket, path):
 
 message = False
 
+async def sender():
+    client = Client(authSid, authKey)
+    message = client.messages \
+    .create(
+         body='There may be a fire alarm going off in your vicinity, please check your suroundings',
+         from_='+18446992585',
+         to='+7039096770'
+     )
+    print(message.sid)
+
 
 async def text(websocket, path):
     global message
@@ -42,7 +54,8 @@ async def text(websocket, path):
             pass
         await websocket.send(message)
 
-
+authSid = input("enter your user sid:")
+authKey = input("enter your authorization token:")
 start_server = websockets.serve(text, "localhost", 8000)
 
 
