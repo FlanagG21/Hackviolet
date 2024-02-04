@@ -1,1 +1,4 @@
-Hackviolet, github
+textSender:
+  Inports needed: pip install twilio websockets
+  to run python3 ./textSender.py
+  input from stdin(in order): twilio account sid, twilio authorization token, phone number with country extension and with no dilimeters
