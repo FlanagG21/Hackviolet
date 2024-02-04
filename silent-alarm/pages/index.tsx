@@ -130,7 +130,7 @@ const HeroSection: React.FC = () => {
 							<FallInPlace delay={0.4} fontWeight="medium">
 								Silent Alarm is a revolutionary device
 								<Br /> that quickly alerts people who are deaf
-								or <Br /> heard of hearing know when a smoke
+								or <Br /> hard of hearing know when a smoke
 								<Br /> detector goes off
 							</FallInPlace>
 						}
