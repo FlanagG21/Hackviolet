@@ -4,7 +4,11 @@ from twilio.rest import Client
 
 nums = 0
 reply = ""
-
+authSid = input("enter your user sid:")
+authKey = input("enter your authorization token:")
+number = input("enter your phone number (do not use seperators and include your country code):")
+client = Client(authSid, authKey)
+message = False
 
 
 # create handler for each connection
@@ -30,15 +34,14 @@ async def handler(websocket, path):
         await websocket.send(reply)
 
 
-message = False
+
 
 async def sender():
-    client = Client(authSid, authKey)
-    message = client.messages \
+    textMessage = client.messages \
     .create(
          body='There may be a fire alarm going off in your vicinity, please check your suroundings',
          from_='+18446992585',
-         to='+7039096770'
+         to='+' + number
      )
     print(message.sid)
 
@@ -50,13 +53,13 @@ async def text(websocket, path):
         try:
             message = await asyncio.wait_for(task, timeout=2)
             print(message)
+            #await sender() use bool to only send once.
         except:
             pass
         await websocket.send(message)
 
-authSid = input("enter your user sid:")
-authKey = input("enter your authorization token:")
 start_server = websockets.serve(text, "localhost", 8000)
+
 
 
 asyncio.get_event_loop().run_until_complete(start_server)
