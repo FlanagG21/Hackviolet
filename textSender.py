@@ -56,7 +56,7 @@ async def text(websocket, path):
             message = await asyncio.wait_for(task, timeout=2)
             print(message)
             if message == "F" and not sent:
-                sender()
+                await sender()
                 sent = True
             elif not message == "F":
                 sent = False
