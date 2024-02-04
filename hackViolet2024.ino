@@ -1,6 +1,7 @@
+//MIC
 //Assign to pin A2:
 //Jiyoon needs to change this probably:
-int sound_sensor = A2;
+int sound_sensor = 12;
 
 int soundValue = 0;
 
@@ -17,9 +18,18 @@ unsigned int worryNoise = 0;
 bool isAlarm = false;
 
 
+//LED
+int led = 14;
+//motor
+int motor = 27;
+
+
 void setup() {
   //How Loud Things Are:
   Serial.begin(9600); //begin Serial Communication
+  //setting led pin as output:
+  pinMode(led, OUTPUT);
+  pinMode(motor, OUTPUT);
 }
  
 void loop(){  
@@ -32,6 +42,12 @@ void loop(){
 
   if(isAlarm == true){
     sendOutAlarm();
+    digitalWrite(led, HIGH);
+    digitalWrite(motor, HIGH);
+    delay(500);
+    digitalWrite(led, LOW);
+    digitalWrite(motor, LOW);
+    delay(500);
   }
 
   Serial.println(isAlarm);
