@@ -8,7 +8,8 @@ authSid = input("enter your user sid:")
 authKey = input("enter your authorization token:")
 number = input("enter your phone number (do not use seperators and include your country code):")
 client = Client(authSid, authKey)
-message = False
+message = "T"
+sent = False
 
 
 # create handler for each connection
@@ -53,14 +54,16 @@ async def text(websocket, path):
         try:
             message = await asyncio.wait_for(task, timeout=2)
             print(message)
-            #await sender() use bool to only send once.
+            if message == "F" and not sent:
+                sender()
+                sent = True
+            else:
+                sent = False
         except:
             pass
         await websocket.send(message)
 
-start_server = websockets.serve(text, "localhost", 8000)
-
-
+start_server = websockets.serve(text, "0.0.0.0", 8000)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 
