@@ -48,7 +48,6 @@ import {
 import { Features } from "components/features";
 import { BackgroundGradient } from "components/gradients/background-gradient";
 import { Faq } from "components/faq";
-import { Pricing } from "components/pricing/pricing";
 
 import { ButtonLink } from "components/button-link/button-link";
 import { Testimonial, Testimonials } from "components/testimonials";
@@ -94,7 +93,7 @@ const HeroSection: React.FC = () => {
 	const [resp, setResp] = React.useState("T");
 
 	useEffect(() => {
-		const socket = new WebSocket("ws://alarmgoes.biz");
+		const socket = new WebSocket("wss://alarmgoes.biz");
 
 		// Connection opened
 		socket.addEventListener("open", (event) => {
@@ -467,16 +466,6 @@ const TestimonialsSection = () => {
 				))}
 			</>
 		</Testimonials>
-	);
-};
-
-const PricingSection = () => {
-	return (
-		<Pricing {...pricing}>
-			<Text p="8" textAlign="center" color="muted">
-				VAT may be applicable depending on your location.
-			</Text>
-		</Pricing>
 	);
 };
 
