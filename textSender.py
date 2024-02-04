@@ -6,8 +6,12 @@ nums = 0
 reply = ""
 authSid = input("enter your user sid:")
 authKey = input("enter your authorization token:")
-inNumber = input("enter your Twilio phone number (do not use seperators and include your country code):")
-outNumber = input("enter your phone number (do not use seperators and include your country code):")
+inNumber = input(
+    "enter your Twilio phone number (do not use seperators and include your country code):"
+)
+outNumber = input(
+    "enter your phone number (do not use seperators and include your country code):"
+)
 client = Client(authSid, authKey)
 message = "T"
 sent = False
@@ -36,15 +40,12 @@ async def handler(websocket, path):
         await websocket.send(reply)
 
 
-
-
 async def sender():
-    textMessage = client.messages \
-    .create(
-         body='There may be a fire alarm going off in your vicinity, please check your suroundings',
-         from_='+' + inNumber,
-         to='+' + outNumber
-     )
+    await client.messages.create(
+        from_="+" + inNumber,
+        to="+" + outNumber,
+        body="There may be a fire alarm going off in your vicinity, please check your suroundings",
+    )
     print(message.sid)
 
 
@@ -63,6 +64,7 @@ async def text(websocket, path):
         except:
             pass
         await websocket.send(message)
+
 
 start_server = websockets.serve(text, "0.0.0.0", 8000)
 
