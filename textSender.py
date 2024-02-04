@@ -6,7 +6,7 @@ nums = 0
 reply = ""
 authSid = input("enter your user sid:")
 authKey = input("enter your authorization token:")
-inNumber = input("enter your Twilio phone number:")
+inNumber = input("enter your Twilio phone number (do not use seperators and include your country code):")
 outNumber = input("enter your phone number (do not use seperators and include your country code):")
 client = Client(authSid, authKey)
 message = "T"
@@ -42,8 +42,8 @@ async def sender():
     textMessage = client.messages \
     .create(
          body='There may be a fire alarm going off in your vicinity, please check your suroundings',
-         from_='+18446992585',
-         to='+' + number
+         from_='+' + inNumber,
+         to='+' + outNumber
      )
     print(message.sid)
 
