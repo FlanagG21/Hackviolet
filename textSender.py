@@ -57,7 +57,7 @@ async def text(websocket, path):
             if message == "F" and not sent:
                 sender()
                 sent = True
-            else:
+            elif not message == "F":
                 sent = False
         except:
             pass
