@@ -63,6 +63,8 @@ import {
 	HighlightsTestimonialItem,
 } from "components/highlights";
 
+import { useEffect, useRef } from "react";
+
 const Home: NextPage = () => {
 	return (
 		<Box>
@@ -88,6 +90,25 @@ const Home: NextPage = () => {
 };
 
 const HeroSection: React.FC = () => {
+	const connection = useRef(null);
+	const [resp, setResp] = React.useState("T");
+
+	useEffect(() => {
+		const socket = new WebSocket("wss://alarmgoes.biz");
+
+		// Connection opened
+		socket.addEventListener("open", (event) => {
+			// socket.send("Connection established");
+		});
+
+		// Listen for messages
+		socket.addEventListener("message", (event) => {
+			console.log("Message from server ", event.data);
+			setResp(event.data);
+		});
+
+		return () => socket.close();
+	}, []);
 	return (
 		<Box position="relative" overflow="hidden">
 			<BackgroundGradient height="100%" />
@@ -116,38 +137,21 @@ const HeroSection: React.FC = () => {
 						}
 					>
 						<FallInPlace delay={0.8}>
-							<HStack pt="4" pb="12" spacing="8">
+							<HStack pt="4" pb="3" spacing="8">
 								{/* <NextjsLogo height="28px" />{" "}
 								<ChakraLogo height="20px" /> */}
 							</HStack>
 
 							<ButtonGroup spacing={4} alignItems="center">
-								<ButtonLink
-									colorScheme="primary"
+								<Tag
+									colorScheme={resp == "T" ? "green" : "red"}
 									size="lg"
-									href="/signup"
 								>
-									Sign Up
-								</ButtonLink>
-								<ButtonLink
-									size="lg"
-									href="https://demo.saas-ui.dev"
-									variant="outline"
-									rightIcon={
-										<Icon
-											as={FiArrowRight}
-											sx={{
-												transitionProperty: "common",
-												transitionDuration: "normal",
-												".chakra-button:hover &": {
-													transform: "translate(5px)",
-												},
-											}}
-										/>
-									}
-								>
-									View demo
-								</ButtonLink>
+									Current Status:{" "}
+									{resp == "T"
+										? "All is good"
+										: "Smoke detected"}
+								</Tag>
 							</ButtonGroup>
 						</FallInPlace>
 					</Hero>
