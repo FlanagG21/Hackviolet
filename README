@@ -1,5 +1,6 @@
 textSender:
   Inports needed: pip install twilio websockets
-  make sure to set up a free twilio account before running at https://www.twilio.com/en-us
+  make sure to set up a free twilio account before running at https://www.twilio.com/en-us In addition you will have to create a free twilio phone number.
   to run python3 ./textSender.py
-  input from stdin(in order): twilio account sid, twilio authorization token, phone number with country extension and with no dilimeters
+  input from stdin(in order): twilio account sid, twilio authorization token, enter your twilio phone number wtih country extension and no delimeters,
+  and enter your phone number with country extension and with no dilimeters.
