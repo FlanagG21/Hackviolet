@@ -94,7 +94,7 @@ const HeroSection: React.FC = () => {
 	const [resp, setResp] = React.useState("T");
 
 	useEffect(() => {
-		const socket = new WebSocket("wss://alarmgoes.biz");
+		const socket = new WebSocket("ws://alarmgoes.biz");
 
 		// Connection opened
 		socket.addEventListener("open", (event) => {
